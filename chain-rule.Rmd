@@ -1,0 +1,23 @@
+---
+title: "chain rule"
+output: html_notebook
+---
+$$\frac{df}{dx}(x) = \frac{df_3}{dx}f_2f_3(x)\cdot\frac{df_2}{dx}f_1(x)\cdot\frac{df_1}{dx}(x)$$
+
+```{r}
+f1 <- function(x) { x^3 + 7 }
+f1_d <- function(x) { 3*x^2 }
+f2 <- function(x) { 1/(1+exp(-x))}
+f2_d <- function(x) { exp(-x)/(1+exp(-x))^2 }
+f3 <- function(x) { 2*x }
+f3_d <- function(x) { 2 }
+
+f <- function(x) { f1(f2(f3(x))) }
+f_d <- function(x) {
+  f1_d(f2(f3(x))) * f2_d(f3(x)) * f3_d(x)
+}
+
+x <- seq(-10, 10, by=1/100)
+plot(x, f(x), type="l", col="red")
+plot(x, f_d(x), type="l", col="blue")
+```
