@@ -1,0 +1,16 @@
+---
+title: "Sigmoid function"
+output: html_notebook
+---
+
+```{r}
+sigmoid <- function(x) {
+  1/(1+exp(-x))
+}
+sigmoid_d <- function(x) {
+  exp(-x)/(1+exp(-x))^2
+}
+x <- seq(-10, 10, by=1/100)
+plot(x, sigmoid(x), type="l", col="red")
+lines(x, sigmoid_d(x), col="blue")
+```
