@@ -1,0 +1,17 @@
+---
+title: "Linear regression"
+output: html_notebook
+---
+
+```{R}
+library(GA)
+hdata <- read.table("EURUSD1440.csv", col.names = c("date", "time", "open", "high", "low", "close", "volume"))
+
+X <- cbind(rep(1, nrow(hdata)), seq(1, nrow(hdata)))
+Y <- hdata$open
+loss <- function(B) sum((X %*% B - Y)**2) / nrow(X)
+xrange <- seq(1.4, 1.6, by=1/100)
+yrange <- seq(-0.001, 0.001, by=0.0001)
+z <- apply(expand.grid(xrange, yrange), 1, loss)
+persp3D(xrange, yrange, matrix(z, nrow=length(xrange), ncol=length(yrange)), theta = -75, zlab="loss(MSE)")
+```
